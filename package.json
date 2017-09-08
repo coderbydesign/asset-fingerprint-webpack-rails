@@ -1,0 +1,26 @@
+{
+  "name": "asset-fingerprint-webpack-rails",
+  "version": "0.1.0",
+  "description": "A webpack plugin to fingerprint your JS for consumption by Rails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderbydesign/asset-fingerprint-webpack-rails.git"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "rails",
+    "assets",
+    "fingerprint"
+  ],
+  "author": "Keith Walsh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coderbydesign/asset-fingerprint-webpack-rails/issues"
+  },
+  "homepage": "https://github.com/coderbydesign/asset-fingerprint-webpack-rails#readme"
+}
