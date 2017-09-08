@@ -4,7 +4,7 @@
   "description": "A webpack plugin to fingerprint your JS for consumption by Rails",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/coderbydesign/asset-fingerprint-webpack-rails/issues"
   },
-  "homepage": "https://github.com/coderbydesign/asset-fingerprint-webpack-rails#readme"
+  "homepage": "https://github.com/coderbydesign/asset-fingerprint-webpack-rails#readme",
+  "devDependencies": {
+    "jasmine": "^2.8.0"
+  }
 }

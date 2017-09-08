@@ -1,6 +1,8 @@
 # Asset Fingerprint Webpack Rails
 A webpack plugin to fingerprint your JS for consumption by Rails
 
+[![Build Status](https://travis-ci.org/coderbydesign/asset-fingerprint-webpack-rails.svg?branch=master)](https://travis-ci.org/coderbydesign/asset-fingerprint-webpack-rails)
+
 ## Install
 ```
 npm install asset-fingerprint-webpack-rails --save-dev
