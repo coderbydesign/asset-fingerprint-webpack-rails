@@ -1,6 +1,6 @@
 {
   "name": "asset-fingerprint-webpack-rails",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A webpack plugin to fingerprint your JS for consumption by Rails",
   "main": "index.js",
   "scripts": {
