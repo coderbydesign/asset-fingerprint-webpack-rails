@@ -11,7 +11,14 @@ npm install asset-fingerprint-webpack-rails --save-dev
 ## Usage
 **Note:** _You will likely want to avoid running the fingerprinting in anything but a production build. Otherwise, if you have file watching setup for instance, it will rebuild the fingerprinting each time a file is updated, requiring you to bounce the Rails server to pickup the new fingerprint. One way to avoid this is by passing an option to your command for dev vs prod: (`webpack` for dev without fingerprinting, and `webpack --env.fingerprint` for prod build)._
 
-This plugin assumes you have a `config/initializers` directory in your project. It uses the `hash` values from the webpack `stats` object. This is the value that will be output into a new initializer called `asset_fingerprint.rb`, as: `ASSET_FINGERPRINT=XXXXXXXX`. You should setup your `webpack.config.js` to use this hash when building your output file (see sample config below).
+This plugin requires you to set your initializer directory path relative to your webpack config, such as: `config/initializers` as the first argument. The second optional argument determines whether or not the fingerprinting should take place. By default, this is set to `true`.
+
+```javascript
+const AssetFingerprintPlugin = require('asset-fingerprint-webpack-rails');
+new AssetFingerprintPlugin('config/initializers', true);
+```
+
+It uses the `hash` values from the webpack `stats` object. This is the value that will be output into a new initializer called `asset_fingerprint.rb`, as: `ASSET_FINGERPRINT=XXXXXXXX`. You should setup your `webpack.config.js` to use this hash when building your output file (see sample config below).
 
 It is also recommended that you use a plugin such as [clean-webpack-plugin](https://github.com/johnagan/clean-webpack-plugin) in conjunction with this plugin to clean out your output directory on each build, if you wish to avoid a collection of old files.
 
@@ -26,7 +33,7 @@ Use a local variable in `webpack.config.js` to pass into the plugin to inform it
  */
 const AssetFingerprintPlugin = require('asset-fingerprint-webpack-rails');
 const needsFingerprint = someLocalBoolean;
-
+const initializerDirectory = 'config/initializers';
 /**
  * add it to your plugins and conditionally use the hash in the filename
  */
@@ -37,7 +44,7 @@ module.exports = {
     filename: needsFingerprint ? "bundle-[hash].js" : "bundle.js"
   },
   plugins: [
-    new AssetFingerprintPlugin(needsFingerprint)
+    new AssetFingerprintPlugin(initializerDirectory, needsFingerprint)
   ]
 };
 ```
@@ -69,7 +76,7 @@ module.exports = function(fingerprint) {
         filename: "bundle-[hash].js"
       },
       plugins: [
-        new AssetFingerprintPlugin()
+        new AssetFingerprintPlugin(initializerDirectory)
       ]
     }
   } else {
@@ -85,7 +92,7 @@ module.exports = function(fingerprint) {
 ```
 
 ### Integration with Rails
-Now that our `config/initializers/asset_fingerprint.rb` file is setup, we can conditionally use it in our views by setting up a helper method in `application_helper.rb`:
+Now that our `asset_fingerprint.rb` file is setup, we can conditionally use it in our views by setting up a helper method in `application_helper.rb`:
 
 ```ruby
   def asset_with_fingerprint(asset_name)
