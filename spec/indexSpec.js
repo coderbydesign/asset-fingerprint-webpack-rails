@@ -67,9 +67,16 @@ describe("AssetFingerprint", function() {
         fingerprint = new AssetFingerprint(dir, true, "TEST_FINGERPRINT");
         expect(fingerprint.fingerprintName).toEqual("TEST_FINGERPRINT");
       });
+
+      it("should not validate when file does not exist.", function () {
+        var dir = 'config/initializers';
+        fingerprint = new AssetFingerprint(dir, true, "TEST_FINGERPRINT");
+        expect(fingerprint.fingerprintName).toEqual("TEST_FINGERPRINT");
+      });
     });
 
     describe("fingerprint name", function() {
+      const formatErrorMessage = 'Please supply a fingerprint name that is all caps separating words by underscores ending with "_FINGERPRINT" (i.e. CUSTOM_ASSET_FINGERPRINT).';
       beforeEach(function() {
         spyOn(fs, "existsSync").and.returnValue(true);
         spyOn(fs, "readFileSync").and.returnValue("TEST_FINGERPRINT");
@@ -84,13 +91,13 @@ describe("AssetFingerprint", function() {
       it("should validate the file name characters.", function() {
         var dir = 'config/initializers';
         fingerprint = function() { new AssetFingerprint(dir, true, "asset_FINGERPRINT"); }
-        expect(fingerprint).toThrowError('Please supply a fingerprint name that is all caps separating words by underscores (i.e. CUSTOM_ASSET_FINGERPRINT).');
+        expect(fingerprint).toThrowError(formatErrorMessage);
       });
 
       it("should validate the file name format.", function() {
         var dir = 'config/initializers';
         fingerprint = function() { new AssetFingerprint(dir, true, "BAD_VALUE"); }
-        expect(fingerprint).toThrowError('Please supply a fingerprint name that is all caps separating words by underscores (i.e. CUSTOM_ASSET_FINGERPRINT).');
+        expect(fingerprint).toThrowError(formatErrorMessage);
       });
     });
 
@@ -104,19 +111,6 @@ describe("AssetFingerprint", function() {
         var dir = 'config/initializers';
         fingerprint = new AssetFingerprint(dir);
         expect(fingerprint.fingerprintName).toEqual("ASSET_FINGERPRINT");
-      });
-    });
-
-    describe("fingerprint name", function() {
-      beforeEach(function() {
-        spyOn(fs, "existsSync").and.returnValue(false);
-        spyOn(fs, "readFileSync").and.returnValue("");
-      });
-
-      it("should not validate when file does not exist.", function () {
-        var dir = 'config/initializers';
-        fingerprint = new AssetFingerprint(dir, true, "TEST_FINGERPRINT");
-        expect(fingerprint.fingerprintName).toEqual("TEST_FINGERPRINT");
       });
     });
 

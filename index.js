@@ -24,7 +24,7 @@ function AssetFingerprint(initializerDirectory, needsFingerprint = true, fingerp
 
   function _validateFingerprintName(fingerprintName) {
     if(!/^([A-Z]|_)*_FINGERPRINT$/.test(fingerprintName)) {
-      throw new Error('Please supply a fingerprint name that is all caps separating words by underscores (i.e. CUSTOM_ASSET_FINGERPRINT).');
+      throw new Error('Please supply a fingerprint name that is all caps separating words by underscores ending with "_FINGERPRINT" (i.e. CUSTOM_ASSET_FINGERPRINT).');
     }
   }
 

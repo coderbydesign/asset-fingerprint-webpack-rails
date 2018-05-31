@@ -126,6 +126,8 @@ ASSET_FINGERPRINT = '0556f9ab7cbd607d10ed'
 CUSTOM_ASSET_FINGERPRINT = '921dcffe35e5f2740ef5'
 ```
 
+The format for the fingerprint name must uppercase separating words with underscore i.e. "CUSTOM_ASSET_FINGERPRINT".  The name also needs to end with "_FINGERPRINT".
+
 
 ### Credit
 Concept adapted from @samullen - http://samuelmullen.com/articles/replacing-the-rails-asset-pipeline-with-webpack-and-yarn/
