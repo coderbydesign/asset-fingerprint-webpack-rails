@@ -108,5 +108,26 @@ And in your layout:
 
 That's it! Now if you use a cleaner as suggested, along with file watching, you'll be able to run this in `development` and have `bundle.js` rebuild without fingerprinting, and your Rails app with use that directly. Once you build for production, your Rails app and your `bundle.js` will use a fingerprinted version of the file.
 
+### Managing multiple webpack builds
+
+If your build setup launches webpack multiple times a new hash will be generated with each run.  This can cause problems when using the default
+arguments.  The last run will overwrite any previously written hash value.  An additional parameter can be passed to tell the plugin to append a new named value that has the key from the subsequent run.
+
+Passing a name in the third paramenter will generate a new line in `asset_fingerprint.rb` having the name assigned to the new hash. For example:
+
+```
+AssetFingerprintPlugin(rubyConfigInitPath, true, 'CUSTOM_ASSET_FINGERPRINT')
+```
+
+will generate a new line in the file like this:
+
+```
+ASSET_FINGERPRINT = '0556f9ab7cbd607d10ed'
+CUSTOM_ASSET_FINGERPRINT = '921dcffe35e5f2740ef5'
+```
+
+The format for the fingerprint name must uppercase separating words with underscore i.e. "CUSTOM_ASSET_FINGERPRINT".  The name also needs to end with "_FINGERPRINT".
+
+
 ### Credit
 Concept adapted from @samullen - http://samuelmullen.com/articles/replacing-the-rails-asset-pipeline-with-webpack-and-yarn/
